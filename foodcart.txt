@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FoodExpress - Your Delivery Cart</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+body {
+font-family: 'Inter', sans-serif;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+min-height: 100vh;
+}
+
+.food-card {
+transition: all 0.3s ease;
+border-radius: 16px;
+overflow: hidden;
+box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.food-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+.cart-open {
+transform: translateX(-100%);
+}
+
+.quantity-btn {
+transition: all 0.2s ease;
+}
+
+.quantity-btn:hover {
+transform: scale(1.1);
+}
+
+.order-btn {
+background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+transition: all 0.3s ease;
+}
+
+.order-btn:hover {
+transform: translateY(-2px);
+box-shadow: 0 5px 15px rgba(255,107,107,0.4);
+}
+</style>
+</head>
+<body class="text-gray-800">
+<!-- Header -->
+<header class="bg-white shadow-lg sticky top-0 z-50">
+<div class="container mx-auto px-4 py-4 flex justify-between items-center">
+<div class="flex items-center space-x-2">
+<div class="w-10 h-10 bg-gradient-to-r from-orange-500 to-pink-500 rounded-full flex items-center justify-center">
+<i class="fas fa-utensils text-white"></i>
+</div>
+<h1 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
+FoodExpress
+</h1>
+</div>
+
+<div class="flex items-center space-x-4">
+<div class="relative">
+<button id="cart-btn" class="bg-gradient-to-r from-blue-500 to-purple-500 text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+<i class="fas fa-shopping-cart"></i>
+<span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">0</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+
+<!-- Main Content -->
+<main class="container mx-auto px-4 py-8">
+<!-- Hero Section -->
+<div class="text-center mb-12">
+<h2 class="text-4xl font-bold text-white mb-4">Delicious Food, Delivered Fast</h2>
+<p class="text-white text-opacity-90 text-lg max-w-2xl mx-auto">
+Browse our menu and add your favorite items to cart. Fresh ingredients, amazing flavors!
+</p>
+</div>
+
+<!-- Food Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+<!-- Food Item 1 -->
+<div class="food-card bg-white">
+<div class="relative overflow-hidden">
+<img
+src="https://placehold.co/600x400"
+alt="Gourmet burger with cheese, lettuce, tomato and special sauce on a sesame seed bun with side of crispy fries"
+class="w-full h-48 object-cover transition-transform duration-300 hover:scale-105"
+onerror="this.src='https://placehold.co/600x400/333/white?text=Burger+Image'"
+>
+<div class="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+Popular
+</div>
+</div>
+<div class="p-6">
+<h3 class="text-xl font-semibold mb-2">Classic Burger Combo</h3>
+<p class="text-gray-600 mb-4">Juicy beef patty with fresh vegetables and crispy fries</p>
+<div class="flex justify-between items-center">
+<span class="text-2xl font-bold text-orange-600">$12.99</span>
+<button class="add-to-cart bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition-colors" data-id="1" data-name="Classic Burger Combo" data-price="12.99" data-image="https://placehold.co/600x400">
+Add to Cart
+</button>
+</div>
+</div>
+</div>
+
+<!-- Food Item 2 -->
+<div class="food-card bg-white">
+<img
+src="https://placehold.co/600x400"
+alt="Authentic wood-fired pizza with pepperoni, mushrooms, bell peppers and melted mozzarella cheese"
+class="w-full h-48 object-cover transition-transform duration-300 hover:scale-105"
+onerror="this.src='https://placehold.co/600x400/333/white?text=Pizza+Image'"
+>
+<div class="p-6">
+<h3 class="text-xl font-semibold mb-2">Pepperoni Pizza</h3>
+<p class="text-gray-600 mb-4">12-inch pizza with premium pepperoni and mozzarella</p>
+<div class="flex justify-between items-center">
+<span class="text-2xl font-bold text-orange-600">$15.99</span>
+<button class="add-to-cart bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition-colors" data-id="2" data-name="Pepperoni Pizza" data-price="15.99" data-image="https://placehold.co/600x400">
+Add to Cart
+</button>
+</div>
+</div>
+</div>
+
+<!-- Food Item 3 -->
+<div class="food-card bg-white">
+<img
+src="https://placehold.co/600x400"
+alt="Fresh chicken Caesar salad with romaine lettuce, grilled chicken, parmesan cheese and creamy dressing"
+class="w-full h-48 object-cover transition-transform duration-300 hover:scale-105"
+onerror="this.src='https://placehold.co/600x400/333/white?text=Salad+Image'"
+>
+<div class="p-6">
+<h3 class="text-xl font-semibold mb-2">Chicken Caesar Salad</h3>
+<p class="text-gray-600 mb-4">Fresh greens with grilled chicken and Caesar dressing</p>
+<div class="flex justify-between items-center">
+<span class="text-2xl font-bold text-orange-600">$10.99</span>
+<button class="add-to-cart bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition-colors" data-id="3" data-name="Chicken Caesar Salad" data-price="10.99" data-image="https://placehold.co/600x400">
+Add to Cart
+</button>
+</div>
+</div>
+</div>
+
+<!-- Food Item 4 -->
+<div class="food-card bg-white">
+<img
+src="https://placehold.co/600x400"
+alt="Fresh sushi platter with California rolls, salmon nigiri, tuna sashimi and ginger garnish"
+class="w-full h-48 object-cover transition-transform duration-300 hover:scale-105"
+onerror="this.src='https://placehold.co/600x400/333/white?text=Sushi+Image'"
+>
+<div class="p-6">
+<h3 class="text-xl font-semibold mb-2">Sushi Platter</h3>
+<p class="text-gray-600 mb-4">Assorted sushi with fresh fish and authentic Japanese flavors</p>
+<div class="flex justify-between items-center">
+<span class="text-2xl font-bold text-orange-600">$18.99</span>
+<button class="add-to-cart bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition-colors" data-id="4" data-name="Sushi Platter" data-price="18.99" data-image="https://placehold.co/600x400">
+Add to Cart
+</button>
+</div>
+</div>
+</div>
+
+<!-- Food Item 5 -->
+<div class="food-card bg-white">
+<img
+src="https://placehold.co/600x400"
+alt="Creamy pasta carbonara with bacon, parmesan cheese and black pepper in a white ceramic bowl"
+class="w-full h-48 object-cover transition-transform duration-300 hover:scale-105"
+onerror="this.src='https://placehold.co/600x400/333/white?text=Pasta+Image'"
+>
+<div class="p-6">
+<h3 class="text-xl font-semibold mb-2">Carbonara Pasta</h3>
+<p class="text-gray-600 mb-4">Creamy pasta with bacon and parmesan cheese</p>
+<div class="flex justify-between items-center">
+<span class="text-2xl font-bold text-orange-600">$13.99</span>
+<button class="add-to-cart bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition-colors" data-id="5" data-name="Carbonara Pasta" data-price="13.99" data-image="https://placehold.co/600x400">
+Add to Cart
+</button>
+</div>
+</div>
+</div>
+
+<!-- Food Item 6 -->
+<div class="food-card bg-white">
+<img
+src="https://placehold.co/600x400"
+alt="Chocolate brownie sundae with vanilla ice cream, hot fudge, whipped cream and cherry on top"
+class="w-full h-48 object-cover transition-transform duration-300 hover:scale-105"
+onerror="this.src='https://placehold.co/600x400/333/white?text=Dessert+Image'"
+>
+<div class="p-6">
+<h3 class="text-xl font-semibold mb-2">Chocolate Brownie Sundae</h3>
+<p class="text-gray-600 mb-4">Warm brownie with ice cream and chocolate sauce</p>
+<div class="flex justify-between items-center">
+<span class="text-2xl font-bold text-orange-600">$8.99</span>
+<button class="add-to-cart bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition-colors" data-id="6" data-name="Chocolate Brownie Sundae" data-price="8.99" data-image="https://placehold.co/600x400">
+Add to Cart
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+<!-- Cart Sidebar -->
+<div id="cart-sidebar" class="fixed top-0 right-0 w-full md:w-96 h-full bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-50">
+<div class="p-6 h-full flex flex-col">
+<div class="flex justify-between items-center mb-8">
+<h2 class="text-2xl font-bold">Your Cart</h2>
+<button id="close-cart" class="text-gray-500 hover:text-gray-700">
+<i class="fas fa-times text-2xl"></i>
+</button>
+</div>
+
+<div id="cart-items" class="flex-1 overflow-y-auto mb-4">
+<!-- Cart items will be dynamically added here -->
+<div class="text-center py-12 text-gray-500" id="empty-cart-message">
+<i class="fas fa-shopping-cart text-4xl mb-4"></i>
+<p>Your cart is empty</p>
+<p class="text-sm">Add some delicious food to get started!</p>
+</div>
+</div>
+
+<div class="border-t pt-4">
+<div class="flex justify-between items-center mb-4">
+<span class="font-semibold">Subtotal:</span>
+<span id="cart-subtotal">$0.00</span>
+</div>
+<div class="flex justify-between items-center mb-4">
+<span class="font-semibold">Delivery Fee:</span>
+<span id="delivery-fee">$2.99</span>
+</div>
+<div class="flex justify-between items-center mb-6 text-xl font-bold">
+<span>Total:</span>
+<span id="cart-total">$2.99</span>
+</div>
+
+<button id="checkout-btn" class="order-btn w-full py-4 text-white font-semibold rounded-lg shadow-lg disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+Proceed to Checkout
+</button>
+</div>
+</div>
+</div>
+
+<!-- Overlay -->
+<div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+<script>
+class FoodCart {
+constructor() {
+this.cart = [];
+this.init();
+}
+
+init() {
+this.bindEvents();
+this.updateCartUI();
+}
+
+bindEvents() {
+// Cart toggle
+document.getElementById('cart-btn').addEventListener('click', () => this.toggleCart());
+document.getElementById('close-cart').addEventListener('click', () => this.toggleCart());
+document.getElementById('overlay').addEventListener('click', () => this.toggleCart());
+
+// Add to cart buttons
+document.querySelectorAll('.add-to-cart').forEach(btn => {
+btn.addEventListener('click', (e) => {
+const item = {
+id: e.target.dataset.id,
+name: e.target.dataset.name,
+price: parseFloat(e.target.dataset.price),
+image: e.target.dataset.image,
+quantity: 1
+};
+this.addToCart(item);
+});
+});
+
+// Checkout
+document.getElementById('checkout-btn').addEventListener('click', () => this.checkout());
+}
+
+addToCart(item) {
+const existingItem = this.cart.find(cartItem => cartItem.id === item.id);
+
+if (existingItem) {
+existingItem.quantity++;
+} else {
+this.cart.push(item);
+}
+
+this.updateCartUI();
+this.showAddedToCartAnimation();
+}
+
+removeFromCart(itemId) {
+this.cart = this.cart.filter(item => item.id !== itemId);
+this.updateCartUI();
+}
+
+updateQuantity(itemId, change) {
+const item = this.cart.find(item => item.id === itemId);
+if (item) {
+item.quantity += change;
+if (item.quantity <= 0) {
+this.removeFromCart(itemId);
+} else {
+this.updateCartUI();
+}
+}
+}
+
+updateCartUI() {
+const cartCount = this.cart.reduce((total, item) => total + item.quantity, 0);
+document.getElementById('cart-count').textContent = cartCount;
+
+const cartItemsContainer = document.getElementById('cart-items');
+const emptyCartMessage = document.getElementById('empty-cart-message');
+const checkoutBtn = document.getElementById('checkout-btn');
+
+if (this.cart.length === 0) {
+emptyCartMessage.classList.remove('hidden');
+checkoutBtn.disabled = true;
+cartItemsContainer.innerHTML = '';
+cartItemsContainer.appendChild(emptyCartMessage);
+} else {
+emptyCartMessage.classList.add('hidden');
+checkoutBtn.disabled = false;
+
+let html = '';
+let subtotal = 0;
+
+this.cart.forEach(item => {
+const itemTotal = item.price * item.quantity;
+subtotal += itemTotal;
+
+html += `
+<div class="cart-item flex items-center space-x-4 py-4 border-b">
+<img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-lg" onerror="this.src='https://placehold.co/64x64/333/white?text=Food'">
+<div class="flex-1">
+<h4 class="font-semibold">${item.name}</h4>
+<p class="text-orange-600 font-semibold">$${item.price.toFixed(2)}</p>
+</div>
+<div class="flex items-center space-x-2">
+<button class="quantity-btn w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300" onclick="cart.updateQuantity('${item.id}', -1)">
+<i class="fas fa-minus"></i>
+</button>
+<span class="font-semibold">${item.quantity}</span>
+<button class="quantity-btn w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300" onclick="cart.updateQuantity('${item.id}', 1)">
+<i class="fas fa-plus"></i>
+</button>
+</div>
+<button class="text-red-500 hover:text-red-700 ml-2" onclick="cart.removeFromCart('${item.id}')">
+<i class="fas fa-trash"></i>
+</button>
+</div>
+`;
+});
+
+cartItemsContainer.innerHTML = html;
+
+const deliveryFee = 2.99;
+const total = subtotal + deliveryFee;
+
+document.getElementById('cart-subtotal').textContent = `$${subtotal.toFixed(2)}`;
+document.getElementById('cart-total').textContent = `$${total.toFixed(2)}`;
+}
+}
+
+showAddedToCartAnimation() {
+const cartBtn = document.getElementById('cart-btn');
+cartBtn.classList.add('animate-pulse');
+setTimeout(() => {
+cartBtn.classList.remove('animate-pulse');
+}, 500);
+}
+
+toggleCart() {
+const cartSidebar = document.getElementById('cart-sidebar');
+const overlay = document.getElementById('overlay');
+
+if (cartSidebar.classList.contains('translate-x-full')) {
+cartSidebar.classList.remove('translate-x-full');
+overlay.classList.remove('hidden');
+} else {
+cartSidebar.classList.add('translate-x-full');
+overlay.classList.add('hidden');
+}
+}
+
+checkout() {
+if (this.cart.length > 0) {
+alert('Order placed successfully! Thank you for your order. Your delicious food will be delivered soon!');
+this.cart = [];
+this.updateCartUI();
+this.toggleCart();
+}
+}
+}
+
+// Initialize cart
+const cart = new FoodCart();
+</script>
+</body>
+</html>
